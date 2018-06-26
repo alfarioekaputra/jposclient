@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>us.extendit</groupId>
+  <artifactId>jposclient</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>jposclient Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+ 
+  <repositories>
+      <repository>
+          <id>jpos</id>
+          <name>jPOS Central Repository</name>
+          <url> http://jpos.org/maven </url>
+          <layout>default</layout>
+      </repository>
+  </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
+    </dependency>
+ 
+      <dependency>
+          <groupId>org.jdom</groupId>
+          <artifactId>jdom</artifactId>
+          <version>1.1</version>
+      </dependency>
+ 
+      <dependency>
+          <groupId>org.jpos</groupId>
+          <artifactId>jpos</artifactId>
+          <version>2.0.6</version>
+      </dependency>
+  </dependencies>
+  <build>
+  <finalName>PaymentOnline</finalName>
+  <plugins>
+    <!-- Set a JDK compiler level -->
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<configuration>
+			<source>1.8</source>
+			<target>1.8</target>
+		</configuration>
+	</plugin>
+
+    <plugin>
+      <!-- Build an executable JAR -->
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <configuration>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <classpathPrefix>lib/</classpathPrefix>
+            <mainClass>us.extendit.Main</mainClass>
+            <classpathPrefix>dependency-jars/</classpathPrefix>
+          </manifest>
+        </archive>
+      </configuration>
+    </plugin>
+    <!-- Copy project dependency -->
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-dependency-plugin</artifactId>
+		<version>2.5.1</version>
+		<executions>
+		  <execution>
+			<id>copy-dependencies</id>
+			<phase>package</phase>
+			<goals>
+				<goal>copy-dependencies</goal>
+			</goals>
+			<configuration>
+			  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+			</configuration>
+		  </execution>
+		</executions>
+	</plugin>
+  </plugins>
+</build>
+</project>
